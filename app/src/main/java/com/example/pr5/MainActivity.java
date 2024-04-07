@@ -8,11 +8,7 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,14 +24,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv_timer = findViewById(R.id.textView2);
+        tv_timer = findViewById(R.id.tv_timer);
     }
 
-    public void OnStart(View view){
+    public void onStart(View view) {
         active = !active;
 
-        if(active){
-            if(timer != null)
+        if (active) {
+            if (timer != null)
                 timer.cancel();
 
             timer = new Timer();
@@ -44,19 +40,19 @@ public class MainActivity extends AppCompatActivity {
             timer.schedule(mTimerTask, 0, 1000);
             Button button = findViewById(R.id.button);
             button.setText("СТОП");
-        }
-        else{
-            if(timer != null)
+        } else {
+            if (timer != null)
                 timer.cancel();
 
             timer = null;
 
             Button button = findViewById(R.id.button);
-            button.setText("СТОП");
+            button.setText("Начать");
         }
     }
-    public void onClear(){
-        if(timer != null)
+
+    public void onClear(View view) {
+        if (timer != null)
             timer.cancel();
 
         timer = null;
@@ -69,32 +65,39 @@ public class MainActivity extends AppCompatActivity {
 
     public class MyTimerTask extends TimerTask {
         @Override
-        public void run(){
+        public void run() {
             String s_second = "";
             time++;
 
-            int hour = time/60/60;
-            int min = time/60 - (hour * 60);
+            int hour = time / 60 / 60;
+            int min = time / 60 - (hour * 60);
             int second = time - (min * 60) - (hour * 60 * 60);
 
-            if(second < 10)
+            if (second < 10)
                 s_second = "0" + second;
             else
                 s_second = String.valueOf(second);
 
             String s_min = "";
-            if(min < 10)
+            if (min < 10)
                 s_min = "0" + min;
             else
-                s_min = String.valueOf(second);
+                s_min = String.valueOf(min);
 
             String s_hour = "";
-            if(hour < 10)
+            if (hour < 10)
                 s_hour = "0" + hour;
             else
                 s_hour = String.valueOf(hour);
 
-            tv_timer.setText(s_hour + ":" + s_min + ":" + s_second);
+            final String timeString = s_hour + ":" + s_min + ":" + s_second;
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tv_timer.setText(timeString);
+                }
+            });
         }
     }
 }
