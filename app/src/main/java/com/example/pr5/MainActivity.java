@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     TextView tv_timer;
+    TextView tv_interval;
     int time = 0;
 
     Timer timer;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tv_timer = findViewById(R.id.tv_timer);
+        tv_interval = findViewById(R.id.tv_interval);
     }
 
     public void onStart(View view) {
@@ -48,6 +50,17 @@ public class MainActivity extends AppCompatActivity {
 
             Button button = findViewById(R.id.button);
             button.setText("Начать");
+        }
+    }
+
+    public void onInterval(View view) {
+        if (active) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tv_interval.setText(tv_timer.getText().toString());
+                }
+            });
         }
     }
 

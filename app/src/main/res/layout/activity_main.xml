@@ -8,9 +8,22 @@
     android:background="#FF9800">
 
     <TextView
-        android:id="@+id/tv_timer"
+        android:id="@+id/tv_interval"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
+        android:text="00:00:00:0000"
+        android:textColor="#FDFDFD"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:text="00:00:00:0000"
         android:textColor="#FDFDFD"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +50,7 @@
         />
 
     <Button
+        android:id="@+id/button2"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
@@ -48,5 +62,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_radius"
+        android:backgroundTint="#FFFFFF"
+        android:onClick="onInterval"
+        android:text="Интервал"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
