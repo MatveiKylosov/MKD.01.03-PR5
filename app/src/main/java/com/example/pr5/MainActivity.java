@@ -75,6 +75,68 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         button.setText("Начать");
     }
+    public void onReverseTimer(View view) {
+        active = !active;
+
+        if (active) {
+            if (timer != null)
+                timer.cancel();
+
+            timer = new Timer();
+            mTimerTask = new ReverseTimerTask();
+
+            timer.schedule(mTimerTask, 0, 1000);
+            Button button = findViewById(R.id.button);
+            button.setText("СТОП");
+        } else {
+            if (timer != null)
+                timer.cancel();
+
+            timer = null;
+
+            Button button = findViewById(R.id.button);
+            button.setText("Начать");
+        }
+    }
+
+    public class ReverseTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            String s_second = "";
+            time--;
+
+            int hour = time / 60 / 60;
+            int min = time / 60 - (hour * 60);
+            int second = time - (min * 60) - (hour * 60 * 60);
+
+            if (second < 10)
+                s_second = "0" + second;
+            else
+                s_second = String.valueOf(second);
+
+            String s_min = "";
+            if (min < 10)
+                s_min = "0" + min;
+            else
+                s_min = String.valueOf(min);
+
+            String s_hour = "";
+            if (hour < 10)
+                s_hour = "0" + hour;
+            else
+                s_hour = String.valueOf(hour);
+
+            final String timeString = s_hour + ":" + s_min + ":" + s_second;
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    tv_timer.setText(timeString);
+                }
+            });
+        }
+    }
+
 
     public class MyTimerTask extends TimerTask {
         @Override
